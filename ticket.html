@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ebeaf1 0%, #0a59cf 100%);
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .details {
+            margin: 20px 0;
+            font-size: 18px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            background-color: rgba(211, 210, 210, 0.128);
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #28a745;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+        .movieDetails{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-left: 40px
+        }
+        .movieImage {
+            border-radius: 15px;
+            object-fit: cover;
+            width: 200px;
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Ticket</h1>
+        <div id="bookingdetails" class="details">
+            <img
+                src="{{image}}"
+                class="movieImage"
+            >
+            <div class="movieDetails">
+                <div>
+                    <p><strong>Theater Name:</strong><span> CineBuzz</span></p>
+                    <p><strong>Movie Name: </strong><span>{{ticket.movie}}</span></p>
+                    <p><strong>Name: </strong><span>{{ticket.name}}</span> </p>
+                    <p><strong>Seats:</strong> <span id="seats">
+                        {% for item in seat %}
+                        {% if loop.index0 == 0 %}
+                        <span>{{item}}</span>
+                        {% else %}
+                        <span>, {{item}}</span>
+                        {% endif %}
+                        {% endfor %}
+                    </span></p>
+                    <p><strong>Total Price: </strong>₹ {{ticket.total_price}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

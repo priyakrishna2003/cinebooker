@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register or Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #007bff, #28a745);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #fff;
+            font-size: 2em;
+            letter-spacing: 1.2px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+        input:focus {
+            background-color: #fff;
+            border-color: #007bff;
+            outline: none;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            width: 95%;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .login-link {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            color: #007bff;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        .login-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Register</h1>
+        <!-- Use Flask's url_for to dynamically generate the URL for form action -->
+        <form action="{{ url_for('register') }}" method="POST" onsubmit="return registerUser()">
+            <input type="text" name="email" placeholder="Email" required>
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="phone_number" placeholder="Phone Number" required>
+            
+            <button type="submit">Register</button>
+        </form>
+        <!-- Use url_for to create the link to the login page -->
+        <a href="{{ url_for('login') }}" class="login-link">Already have an account? Login here</a>
+    </div>
+
+    <script>
+        function registerUser() {
+            console.log("url is:", "{{ url_for('register') }}")
+            return true;  // Prevent actual form submission for demo purposes
+        }
+    </script>
+
+</body>
+</html>

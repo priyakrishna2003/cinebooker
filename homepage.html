@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Movie Ticket Booking</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #080808 0%, #2575fc 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 35px;
+            text-decoration: none;
+            background-color: #ff6347;
+            color: #fff;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .button:hover {
+            background-color: #e5533d;
+        }
+
+        .button:active {
+            background-color: #cc4933;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to CineBuzz</h1>
+        <p>Your next movie adventure is just a few clicks away. Enjoy seamless online ticket booking!</p>
+        <a href="{{url_for('register')}}" class="button">Book Now</a>
+    </div>
+
+    <!-- <footer>&copy; 2024 CineBuzz. All Rights Reserved.</footer> -->
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Seats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #007bff, #28a745);
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        .seat {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #dcdcdc; /* Offwhite for unselected */
+            margin: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .seat.selected {
+            background-color: #f78c8c; /* Pink for selected */
+        }
+        .seat-row {
+            margin-bottom: 10px;
+        }
+        form{
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        button {
+            display: block;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 15px 25px;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .screen {
+            height: 80px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 40px;
+            /* background-color: #0056b3; */
+        }
+        .main-display{
+            width: 100%;
+            height: 80px;
+            background-color: rgb(124, 124, 124);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .main-display span {
+            font-weight: 700;
+            font-size: 22px;
+            color: #dcdcdc;
+        }
+        .left-angle{
+            width: 0;
+            height: 0;
+            margin: 0;
+            border-style: solid;
+            border-bottom-width: 78px;
+            border-right-width: 78px;
+            border-color: #f0f0f0;
+            border-right-color: rgb(124, 124, 124);
+        }
+        .right-angle {
+            width: 0;
+            height: 0;
+            margin: 0;
+            border-style: solid;
+            border-bottom-width: 78px;
+            border-left-width: 78px;
+            border-color: #f0f0f0;
+            border-left-color: rgb(124, 124, 124);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your Seats</h1>
+        <div class="screen">
+            <div class="left-angle"></div>
+            <div class="main-display">
+                <span>Screen</span>
+            </div>
+            <div class="right-angle"></div>
+        </div>
+            <div id="seating-chart">
+                <!-- Creating 40 seats (5 rows, 8 seats per row) -->
+                <div class="seat-row">
+                    <div class="seat" data-seat="1"></div>
+                    <div class="seat" data-seat="2"></div>
+                    <div class="seat" data-seat="3"></div>
+                    <div class="seat" data-seat="4"></div>
+                    <div class="seat" data-seat="5"></div>
+                    <div class="seat" data-seat="6"></div>
+                    <div class="seat" data-seat="7"></div>
+                    <div class="seat" data-seat="8"></div>
+                </div>
+                <div class="seat-row">
+                    <div class="seat" data-seat="9"></div>
+                    <div class="seat" data-seat="10"></div>
+                    <div class="seat" data-seat="11"></div>
+                    <div class="seat" data-seat="12"></div>
+                    <div class="seat" data-seat="13"></div>
+                    <div class="seat" data-seat="14"></div>
+                    <div class="seat" data-seat="15"></div>
+                    <div class="seat" data-seat="16"></div>
+                </div>
+                <div class="seat-row">
+                    <div class="seat" data-seat="17"></div>
+                    <div class="seat" data-seat="18"></div>
+                    <div class="seat" data-seat="19"></div>
+                    <div class="seat" data-seat="20"></div>
+                    <div class="seat" data-seat="21"></div>
+                    <div class="seat" data-seat="22"></div>
+                    <div class="seat" data-seat="23"></div>
+                    <div class="seat" data-seat="24"></div>
+                </div>
+                <div class="seat-row">
+                    <div class="seat" data-seat="25"></div>
+                    <div class="seat" data-seat="26"></div>
+                    <div class="seat" data-seat="27"></div>
+                    <div class="seat" data-seat="28"></div>
+                    <div class="seat" data-seat="29"></div>
+                    <div class="seat" data-seat="30"></div>
+                    <div class="seat" data-seat="31"></div>
+                    <div class="seat" data-seat="32"></div>
+                </div>
+                <div class="seat-row">
+                    <div class="seat" data-seat="33"></div>
+                    <div class="seat" data-seat="34"></div>
+                    <div class="seat" data-seat="35"></div>
+                    <div class="seat" data-seat="36"></div>
+                    <div class="seat" data-seat="37"></div>
+                    <div class="seat" data-seat="38"></div>
+                    <div class="seat" data-seat="39"></div>
+                    <div class="seat" data-seat="40"></div>
+                </div>
+            </div>
+
+            <!-- Hidden field to store selected seats -->
+        <form action="{{url_for('seat_booking')}}" method="POST" onsubmit="return insubmit()">
+            <input type="hidden" name="selected_seats" id="selected-seats">
+            <button type="submit">Confirm Seats</button>
+        </form>
+    </div>
+
+    <script>
+        const seats = document.querySelectorAll('.seat'); 
+        const selectedSeatsInput = document.getElementById('selected-seats');
+
+        let selectedSeats = [];
+
+        function onsubmit(){return true}
+
+        seats.forEach(seat => {
+            seat.addEventListener('click', () => {
+                seat.classList.toggle('selected');
+                const seatNumber = seat.getAttribute('data-seat');
+                if (seat.classList.contains('selected')) {
+                    selectedSeats.push(seatNumber);
+                } else {
+                    selectedSeats = selectedSeats.filter(seat => seat !== seatNumber);
+                }
+                selectedSeatsInput.value = selectedSeats.join(','); // Update hidden input with selected seats
+            });
+        });
+    </script>
+</body>
+</html>

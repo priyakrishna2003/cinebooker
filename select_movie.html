@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Ticket Booking - Home</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Changed to flex-start for better alignment */
+        width: 100%;
+        height: 100vh; /* Full viewport height */
+      }
+      .container {
+        flex-wrap: wrap;
+        margin-bottom: 5%; /* Reduced margin for better spacing */
+        padding: 20px;
+        width: 80%;
+        background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent */
+        border-radius: 12px; /* Rounded corners for a softer look */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.19);
+        transition: transform 0.3s; /* Add transition effect */
+      }
+      .container:hover {
+        transform: translateY(-5px); /* Lift effect on hover */
+      }
+      .movie-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Space between movie items */
+        width: 100%;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px; /* Adjusted margin */
+        color: #333; /* Darker color for better contrast */
+      }
+      .movie {
+        display: flex;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+        width: 45%; /* Slightly larger width */
+        transition: transform 0.3s; /* Transition for movie items */
+      }
+      .movie:hover {
+        transform: scale(1.02); /* Slight scale effect on hover */
+      }
+      img {
+        width: 200px;
+        height: 300px; /* Increased height for a better aspect ratio */
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 20px;
+      }
+      .movie-details {
+        margin-left: 20px; /* Reduced margin */
+        height: 100%;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .movie-info {
+        flex-grow: 1;
+      }
+      .movie-info h2 {
+        margin: 0 0 10px 0;
+        color: #444; /* Darker title color */
+      }
+      .movie-info p {
+        margin: 5px 0;
+        color: #777; /* Softer color for descriptions */
+      }
+      .book-now {
+        text-decoration: none;
+        color: white;
+        background-color: #28a745;
+        padding: 12px 48px; /* Slightly increased padding */
+        border-radius: 5px;
+        font-size: 18px; /* Increased font size */
+        border: 0;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+      }
+      .book-now:hover {
+        background-color: #218838;
+        transform: translateY(-2px); /* Lift effect on button hover */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Recently Released Movies</h1>
+
+      <div class="movie-container">
+        <!-- Movie 1 -->
+        {% for item in movies %}
+        <div class="movie">
+          <img
+            src="{{item.imageUrl}}"
+            alt="{{item.name}} poster"
+          />
+          <div class="movie-details">
+            <div class="movie-info">
+              <h2>{{item.name}}</h2>
+              <p>{{item.rating}}</p>
+              <p>{{item.votes}}</p>
+            </div>
+            <form
+              action="{{url_for('select_movie')}}"
+              method="POST"
+              onsubmit="return onsubmit()"
+            >
+              <input value="{{loop.index}}" name="movie_id" type="hidden" />
+              <button class="book-now" name="submission">Book Now</button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+        
+      </div>
+    </div>
+  </body>
+  <script>
+    function onsubmit() {
+      return true;
+    }
+  </script>
+</html>
